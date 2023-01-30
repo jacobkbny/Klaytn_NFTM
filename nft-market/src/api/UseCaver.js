@@ -20,12 +20,13 @@ const option = {
     ],
   };
   const caver = new Caver(new Caver.providers.HttpProvider("https://node-api.klaytnapi.com/v1/klaytn",option));
+
   const NFTContract = new caver.contract(JSON.parse(JSONED_KIP17TokenABI),NFT_CONTRACT_ADDRESS);
 
   // 1. Smart contract Deploy 
   // 2. caver.js link the smart contract
   // 3. display the data from the smart contract
-  export const fetchCardsof = async(address) => {
+  export const fetchCardsof = async (address) => {
       // fetch Balance
       const balance = await NFTContract.methods.balanceOf(address).call();
       console.log(`NFT Balance: ${balance}`);
@@ -37,17 +38,19 @@ const option = {
       }
       // Fetch Token URIs
       const tokenUris = [];
-      for (let i = 0; i<balance; i++){
-        const metadata_Url = await NFTContract.methods.tokenURI(tokenIds[i]).call(); // -> metadata KAS address
-        const response = await axios.get(metadata_Url)
-        const uriJSON = response.data
-        tokenUris.push(uriJSON.image);
+      for await (const tokenId of tokenIds){
+        console.log(`TokenId:${tokenId}`)
+          const metadata_Url = await NFTContract.methods.tokenURI(tokenId).call(); 
+          console.log(`metadata_Url: ${metadata_Url}`)
+          const res = await axios.get(metadata_Url);
+          const uriJSON = res.data;
+          tokenUris.push(uriJSON.image);
       }
       const nfts = [];
       for (let i=0; i<balance; i++){
         nfts.push({uri:tokenUris[i],id:tokenIds[i]});
       }
-      console.log(nfts);
+      console.log(`NFTS:${JSON.stringify(nfts)}`);
       return nfts;
   }
   export const getBalance = (address) => {

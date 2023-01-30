@@ -21,7 +21,6 @@ const DEFAULT_ADDRESS = "0x00000000000000000000000000"
 const MYADDRESS = "0x37bd50665A4A2b3F60522540053c367155165b53"
 function App() {
   // State Data
-  
   //Global Data
   // address 
   // nft 
@@ -29,8 +28,7 @@ function App() {
   // getBalance("0x9c1d730ad65c6246b6a7cb7f1a79980ee404403b");
   const [nfts, setNfts] = useState([]); // {tokenId: '101', tokenrui:""}
   const [myBalance, setMyBalance] = useState('0');
-  const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
-
+  const [myAddress, setMyAddress] = useState(MYADDRESS);
   // UI
   const [qrvalue , setQrvalue] = useState(DEFAULT_QR_CODE)
   const [tab, setTab] = useState("MARKET") // MARKET , MINT , WALLET
@@ -73,12 +71,11 @@ function App() {
     // {option} asset upload api 
 
     // metadata upload
-    const metadataURL = KasAPI.uploadMetadata(uri,title,desc);
+    const metadataURL = KasAPI.uploadMetadata(uri);
     if  (!metadataURL){
         alert("Failed to upload metadata")
         return ;
     }
-
     // const randomTokenId = parseInt(Math.random()* 1000000000)
     KlipAPI.mintCardWithURI(
       myAddress,
@@ -111,7 +108,6 @@ function App() {
       setShowModal(true)
   }
   const onClickMyCard = (tokenID) => {
-    
     KlipAPI.listingCard(MYADDRESS, tokenID, setQrvalue, (result) => {
       alert(JSON.stringify(result));
     })
@@ -181,7 +177,6 @@ function App() {
               <Col style={{marginRight: 0, paddingRight:0}}>
                 <Card onClick= {()=>{
                   onClickCard(nfts[rowIndex*2].id);
-
                 }
               }>
                 <Card.Img src={nfts[rowIndex*2].uri} />
@@ -219,26 +214,6 @@ function App() {
                 ): null}
                 <Form>
                   <Form.Group>
-                  <Form.Control
-                    value={title}
-                    onChange= {(e) =>{
-                      console.log(e.target.value);
-                      setTitle(e.target.value);
-                    }}
-                    type="text"
-                    placeholder='Please write a title'
-                    />
-                    <br/>
-                    <Form.Control
-                    value={desc}
-                    onChange= {(e) =>{
-                      console.log(e.target.value);
-                      setDesc(e.target.value);
-                    }}
-                    type="text"
-                    placeholder='Please write a description'
-                    />
-                    <br/>
                     <Form.Control
                     value={mintImageUrl}
                     onChange= {(e) =>{
@@ -262,7 +237,8 @@ function App() {
                   <br/>
                   <Button
                     onClick={() => {
-                      onClickMint(title,desc,mintImageUrl, mintTokenID)
+                      console.log(`mintImageUrl in onClick: ${mintImageUrl}`);
+                      onClickMint(mintImageUrl,mintTokenID)
                     }
                   } 
                     variant='primary'
@@ -304,7 +280,7 @@ function App() {
                     <FontAwesomeIcon color="white" size="lg" icon={faPlus}/>
                       </div>
                   </div>
-                  <div onClick={(address)=> {
+                  <div onClick={async (address) => {
                     setTab("WALLET");
                     fetchMyNFTs(address);
                   }}
