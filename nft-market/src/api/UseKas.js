@@ -9,15 +9,12 @@ const option = {
     }
 }
 
-
-export const uploadMetadata = async (company,position, desc,start, end, imageUrl) => {
+// company,position, desc,start, end, imageUrl
+export const uploadMetadata = async (company, desc, imageUrl) => {
         const metadata = {
             metadata: {
                 company: company,
-                position: position,
                 description:desc,
-                startDate:start,
-                endDate: end,
                 image: imageUrl
             }
         }

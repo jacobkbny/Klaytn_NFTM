@@ -30,7 +30,7 @@ import { MARKET_CONTRACT_ADDRESS } from "./constants";
 
 const DEFAULT_QR_CODE = "DEFAULT";
 const DEFAULT_ADDRESS = "0x00000000000000000000000000";
-var TokenID = 101915;
+var TokenID = 101919;
 function App() {
   // State Data
   //Global Data
@@ -76,7 +76,7 @@ function App() {
   };
   // onClickMint
   // company,position, desc,start, end, mintImageUrl,
-  const onClickMint = async (company,position, desc,start , end,  uri, tokenID) => {
+  const onClickMint = async (company, desc,  uri, tokenID) => {
     if (myAddress === DEFAULT_ADDRESS) {
       alert("Please Sign-in with QR Code");
       return;
@@ -89,7 +89,7 @@ function App() {
     // }
     // metadata upload
     // I shoould put assetURI data instead of uri
-    const metadataURL = await KasAPI.uploadMetadata(company,position, desc,start, end, uri);
+    const metadataURL = await KasAPI.uploadMetadata(company, desc, uri);
     if (!metadataURL) {
       alert("Failed to upload metadata");
       return;
@@ -126,7 +126,7 @@ function App() {
     setShowModal(true);
   };
   const onClickMyCard = (tokenID) => {
-    KlipAPI.listingCard(MYADDRESS, tokenID, setQrvalue, (result) => {
+    KlipAPI.listingCard(DEFAULT_ADDRESS, tokenID, setQrvalue, (result) => {
       alert(JSON.stringify(result));
     });
   };
@@ -251,10 +251,10 @@ function App() {
                         setCompany(e.target.value);
                       }}
                       type="text"
-                      placeholder="Please Write Company Name "
+                      placeholder="Please Write Title "
                     />
                     <br />
-                    <Form.Control
+                    {/* <Form.Control
                       value={jobPosition}
                       onChange={(e) => {
                         console.log(e.target.value);
@@ -263,7 +263,7 @@ function App() {
                       type="text"
                       placeholder="Please Write your job position "
                     />
-                    <br />
+                    <br /> */}
                     <Form.Control
                       value={desc}
                       onChange={(e) => {
@@ -271,10 +271,10 @@ function App() {
                         setDesc(e.target.value);
                       }}
                       type="text"
-                      placeholder="Please write job description"
+                      placeholder="Please write description"
                     />
                     <br />
-                    <div
+                    {/* <div
                       style={{ fontSize: 15, color: "white", paddingLeft: 5 }}
                     >
                       {" "}
@@ -304,7 +304,7 @@ function App() {
                       maxDate={new Date()}
                     />
                     <br />
-                    <br />
+                    <br /> */}
                     <Form.Control
                       value={mintImageUrl}
                       onChange={(e) => {
@@ -343,7 +343,8 @@ function App() {
                   <Button
                     onClick={() => {
                       console.log(`mintImageUrl in onClick: ${mintImageUrl}`);
-                      onClickMint(company,jobPosition, desc,start, end, mintImageUrl, TokenID +=1);
+                      // onClickMint(company,jobPosition, desc,start, end, mintImageUrl, TokenID +=1);
+                      onClickMint(company, desc, mintImageUrl, TokenID +=1);
                     }}
                     variant="primary"
                     style={{
