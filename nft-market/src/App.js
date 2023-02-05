@@ -30,7 +30,6 @@ import { MARKET_CONTRACT_ADDRESS } from "./constants";
 
 const DEFAULT_QR_CODE = "DEFAULT";
 const DEFAULT_ADDRESS = "0x00000000000000000000000000";
-const MYADDRESS = "0x37bd50665A4A2b3F60522540053c367155165b53";
 var TokenID = 101915;
 function App() {
   // State Data
@@ -41,7 +40,7 @@ function App() {
   // getBalance("0x9c1d730ad65c6246b6a7cb7f1a79980ee404403b");
   const [nfts, setNfts] = useState([]); // {tokenId: '101', tokenrui:""}
   const [myBalance, setMyBalance] = useState("0");
-  const [myAddress, setMyAddress] = useState(MYADDRESS);
+  const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
   // UI
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
   const [tab, setTab] = useState("MARKET"); // MARKET , MINT , WALLET
