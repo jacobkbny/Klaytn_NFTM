@@ -41,7 +41,6 @@ const option = {
       for await (const tokenId of tokenIds){
         console.log(`TokenId:${tokenId}`)
           const metadata_Url = await NFTContract.methods.tokenURI(tokenId).call(); 
-          console.log(`metadata_Url: ${metadata_Url}`)
           const res = await axios.get(metadata_Url);
           const uriJSON = res.data;
           tokenUris.push(uriJSON.image);

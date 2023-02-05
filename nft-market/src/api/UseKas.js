@@ -10,13 +10,14 @@ const option = {
 }
 
 
-export const uploadMetadata = async (imageUrl) => {
-        const title = "temp"
-        const desc = "temp"
+export const uploadMetadata = async (company,position, desc,start, end, imageUrl) => {
         const metadata = {
             metadata: {
-                name: title,
-                description: desc,
+                company: company,
+                position: position,
+                description:desc,
+                startDate:start,
+                endDate: end,
                 image: imageUrl
             }
         }
@@ -29,5 +30,22 @@ export const uploadMetadata = async (imageUrl) => {
             console.log(`Error message :${e}`)
             return false
         }
+
+}
+
+
+export const uploadAssetData = async (file) => {
+    const fileData = {
+            file:file
+    }
+    try {
+        const response = await axios.post("https://metadata-api.klaytnapi.com/v1/metadata/asset",fileData)
+        console.log(`${JSON.stringify(response.data)}`);
+        console.log(`Response.data.uri:${response.data.uri}`)
+        return response.data.url
+    }catch(e){
+        console.log(`Error message :${e}`)
+        return false
+    }
 
 }
