@@ -126,7 +126,7 @@ function App() {
     setShowModal(true);
   };
   const onClickMyCard = (tokenID) => {
-    KlipAPI.listingCard(MYADDRESS, tokenID, setQrvalue, (result) => {
+    KlipAPI.listingCard(DEFAULT_ADDRESS, tokenID, setQrvalue, (result) => {
       alert(JSON.stringify(result));
     });
   };
