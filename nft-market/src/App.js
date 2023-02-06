@@ -37,7 +37,7 @@ function App() {
   // address
   // nft
 
-  // getBalance("0x9c1d730ad65c6246b6a7cb7f1a79980ee404403b");
+  // getBalance("0x9c1d730ad65c6246b6a7cb7f1a79980ee404403b"
   const [nfts, setNfts] = useState([]); // {tokenId: '101', tokenrui:""}
   const [myBalance, setMyBalance] = useState("0");
   const [myAddress, setMyAddress] = useState(DEFAULT_ADDRESS);
@@ -45,12 +45,12 @@ function App() {
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
   const [tab, setTab] = useState("MARKET"); // MARKET , MINT , WALLET
   const [mintImageUrl, setMintImageUrl] = useState("");
-  const [mintTokenID, setMintTokenID] = useState("");
+  // const [mintTokenID, setMintTokenID] = useState("");
   const [company, setCompany] = useState("");
   const [desc, setDesc] = useState("");
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
-  const [jobPosition , setJobPosition] = useState("");
+  // const [start, setStart] = useState("");
+  // const [end, setEnd] = useState("");
+  // const [jobPosition , setJobPosition] = useState("");
   // const [file, setFile] = useState();
   // Modal
   const [showModal, setShowModal] = useState(false);
@@ -126,7 +126,7 @@ function App() {
     setShowModal(true);
   };
   const onClickMyCard = (tokenID) => {
-    KlipAPI.listingCard(DEFAULT_ADDRESS, tokenID, setQrvalue, (result) => {
+    KlipAPI.listingCard(myAddress, tokenID, setQrvalue, (result) => {
       alert(JSON.stringify(result));
     });
   };
