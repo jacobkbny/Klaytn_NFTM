@@ -67,7 +67,7 @@ const option = {
   // export const setCount = async (newCount) => {
   //   // 사용할 account 설정
   //   try{
-  //     const privatekey= "0x2f10b29a315b39c44430ae511a5dc7d108a06f1315002937dd3d1f4d7ce7f5ef";
+  //     const privatekey= "";
   //     const deployer = caver.wallet.keyring.createFromPrivateKey(privatekey);
   //     caver.wallet.add(deployer);
       
